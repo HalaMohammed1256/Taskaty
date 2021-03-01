@@ -14,6 +14,13 @@
 		2B675DC325EC272500DAD846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B675DC225EC272500DAD846 /* Assets.xcassets */; };
 		2B675DC625EC272500DAD846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B675DC425EC272500DAD846 /* LaunchScreen.storyboard */; };
 		2B675DC925EC272500DAD846 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DC825EC272500DAD846 /* main.m */; };
+		2B675DD225EC31BC00DAD846 /* ToDoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DD125EC31BC00DAD846 /* ToDoViewController.m */; };
+		2B675DD625EC31CD00DAD846 /* InProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DD525EC31CD00DAD846 /* InProgressViewController.m */; };
+		2B675DDA25EC31DA00DAD846 /* DoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DD925EC31DA00DAD846 /* DoneViewController.m */; };
+		2B675DDE25EC33D400DAD846 /* ZTestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DDD25EC33D400DAD846 /* ZTestTableViewController.m */; };
+		2B675DE225EC3C1B00DAD846 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DE125EC3C1B00DAD846 /* DataModel.m */; };
+		2B675DE625EC3D3A00DAD846 /* AddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DE525EC3D3A00DAD846 /* AddTaskViewController.m */; };
+		2B675DEA25EC42DF00DAD846 /* EditTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +36,21 @@
 		2B675DC525EC272500DAD846 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B675DC725EC272500DAD846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B675DC825EC272500DAD846 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2B675DD025EC31BC00DAD846 /* ToDoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToDoViewController.h; sourceTree = "<group>"; };
+		2B675DD125EC31BC00DAD846 /* ToDoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToDoViewController.m; sourceTree = "<group>"; };
+		2B675DD425EC31CD00DAD846 /* InProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProgressViewController.h; sourceTree = "<group>"; };
+		2B675DD525EC31CD00DAD846 /* InProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InProgressViewController.m; sourceTree = "<group>"; };
+		2B675DD825EC31DA00DAD846 /* DoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoneViewController.h; sourceTree = "<group>"; };
+		2B675DD925EC31DA00DAD846 /* DoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoneViewController.m; sourceTree = "<group>"; };
+		2B675DDC25EC33D400DAD846 /* ZTestTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTestTableViewController.h; sourceTree = "<group>"; };
+		2B675DDD25EC33D400DAD846 /* ZTestTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTestTableViewController.m; sourceTree = "<group>"; };
+		2B675DE025EC3C1B00DAD846 /* DataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		2B675DE125EC3C1B00DAD846 /* DataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		2B675DE425EC3D3A00DAD846 /* AddTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddTaskViewController.h; sourceTree = "<group>"; };
+		2B675DE525EC3D3A00DAD846 /* AddTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTaskViewController.m; sourceTree = "<group>"; };
+		2B675DE825EC42DF00DAD846 /* EditTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditTaskViewController.h; sourceTree = "<group>"; };
+		2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditTaskViewController.m; sourceTree = "<group>"; };
+		2B675DEC25EC463000DAD846 /* AddDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDelegation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +94,21 @@
 				2B675DC425EC272500DAD846 /* LaunchScreen.storyboard */,
 				2B675DC725EC272500DAD846 /* Info.plist */,
 				2B675DC825EC272500DAD846 /* main.m */,
+				2B675DD025EC31BC00DAD846 /* ToDoViewController.h */,
+				2B675DD125EC31BC00DAD846 /* ToDoViewController.m */,
+				2B675DD425EC31CD00DAD846 /* InProgressViewController.h */,
+				2B675DD525EC31CD00DAD846 /* InProgressViewController.m */,
+				2B675DD825EC31DA00DAD846 /* DoneViewController.h */,
+				2B675DD925EC31DA00DAD846 /* DoneViewController.m */,
+				2B675DDC25EC33D400DAD846 /* ZTestTableViewController.h */,
+				2B675DDD25EC33D400DAD846 /* ZTestTableViewController.m */,
+				2B675DE025EC3C1B00DAD846 /* DataModel.h */,
+				2B675DE125EC3C1B00DAD846 /* DataModel.m */,
+				2B675DE425EC3D3A00DAD846 /* AddTaskViewController.h */,
+				2B675DE525EC3D3A00DAD846 /* AddTaskViewController.m */,
+				2B675DE825EC42DF00DAD846 /* EditTaskViewController.h */,
+				2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */,
+				2B675DEC25EC463000DAD846 /* AddDelegation.h */,
 			);
 			path = "To Do List Project";
 			sourceTree = "<group>";
@@ -146,8 +183,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B675DBE25EC272400DAD846 /* ViewController.m in Sources */,
+				2B675DDA25EC31DA00DAD846 /* DoneViewController.m in Sources */,
+				2B675DE225EC3C1B00DAD846 /* DataModel.m in Sources */,
 				2B675DB825EC272400DAD846 /* AppDelegate.m in Sources */,
+				2B675DD625EC31CD00DAD846 /* InProgressViewController.m in Sources */,
+				2B675DE625EC3D3A00DAD846 /* AddTaskViewController.m in Sources */,
+				2B675DD225EC31BC00DAD846 /* ToDoViewController.m in Sources */,
+				2B675DEA25EC42DF00DAD846 /* EditTaskViewController.m in Sources */,
 				2B675DC925EC272500DAD846 /* main.m in Sources */,
+				2B675DDE25EC33D400DAD846 /* ZTestTableViewController.m in Sources */,
 				2B675DBB25EC272400DAD846 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
