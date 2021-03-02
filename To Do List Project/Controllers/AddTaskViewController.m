@@ -6,6 +6,8 @@
     NSArray *priorityArray;
     NSString* priority;
     
+    NSMutableDictionary *dataDictionary;
+    
 }
 
 @end
@@ -16,9 +18,10 @@
     [super viewDidLoad];
     
     priorityArray = @[@"High", @"Medium", @"Low"];
+    dataDictionary = [NSMutableDictionary new];
     
     // to set priority on select data picker
-    priority = priorityArray[0];
+    priority = [NSString new];
     
     // to tell the priority data picker that self (todo view) conform the required data picker delegation
     self.priorityPicker.delegate = self;
@@ -33,21 +36,27 @@
 
 -(void) saveTaskAction{
     
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM/dd/yyyy"];
-    NSString *dateString = [formatter stringFromDate:[_addDatePicker date]];
-    
     DataModel *model = [DataModel new];
     model.taskName = _addNameTextField.text;
-    model.taskDate = dateString;
+    model.taskDate = _addDatePicker.date; // now
     model.taskDescription = _addDescriptionTextView.text;
-    model.taskPriority = priority;
+    
+    if(priority == nil){
+        model.taskPriority = priorityArray[0];
+    }else{
+        model.taskPriority = priority;
+    }
+    
     model.taskState = @"In progress";
     
+    [dataDictionary setObject:model.taskName forKey:@"name"];
+    [dataDictionary setObject:model.taskDescription forKey:@"description"];
+    [dataDictionary setObject:model.taskPriority forKey:@"priority"];
+    [dataDictionary setObject:model.taskDate forKey:@"date"];
+    [dataDictionary setObject:model.taskState forKey:@"state"];
     
-
-    [_addTaskDelegation addTask:model];
+    
+    [_addTaskDelegation addTask:dataDictionary];
     
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -72,7 +81,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     
-    NSString *titleForRow = priorityArray[row];;
+    NSString *titleForRow = priorityArray[row];
     
     return titleForRow;
 }

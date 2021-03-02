@@ -5,24 +5,31 @@
 
 @interface ToDoViewController (){
     NSUserDefaults *defaults;
+        
 }
 
 @end
 
 @implementation ToDoViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    // NSMutableArray for all tasks
-    _allTasks = [NSMutableArray new];
     
     // to remove empty cell in table
     _tasksTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     // declear user defaults
     defaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    // NSMutableArray for all tasks
+    if ([[defaults objectForKey:@"all_todo_tasks"] mutableCopy] == nil) {
+        _allTasks = [NSMutableArray new];
+    }else{
+        _allTasks = [[defaults objectForKey:@"all_todo_tasks"] mutableCopy];
+    }
     
     
     // add bar button
@@ -47,26 +54,27 @@
 // action on add bar button
 - (void)addTaskAction {
     
-    AddTaskViewController *addTask = [self.storyboard instantiateViewControllerWithIdentifier:@"add_task"];
-    [addTask setAddTaskDelegation:self];
-    [self.navigationController pushViewController:addTask animated:YES];
+    AddTaskViewController *addTaskView = [self.storyboard instantiateViewControllerWithIdentifier:@"add_task"];
+    [addTaskView setAddTaskDelegation:self];
+    [self.navigationController pushViewController:addTaskView animated:YES];
     
 }
+
 
 
 // add task delegation method
-- (void)addTask:(DataModel *)dataModel{
+
+- (void)addTask:(NSMutableDictionary *)dataDictionary{
     
-    [_allTasks addObject: dataModel];
+    [_allTasks addObject: dataDictionary];
     
-    [defaults setObject:dataModel.taskName forKey:@"add_name"];
-    [defaults setObject:dataModel.taskDescription forKey:@"add_description"];
-    [defaults setObject:dataModel.taskPriority forKey:@"add_priority"];
-    [defaults setObject:dataModel.taskDate forKey:@"add_date"];
-    [defaults setObject:dataModel.taskState forKey:@"add_state"];
     
+    [defaults setObject:_allTasks forKey:@"all_todo_tasks"];
+    
+    [defaults synchronize];
     [_allTaskTableView reloadData];
 }
+    
 
 
 
@@ -85,23 +93,25 @@
     
     TodoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
+
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
+    NSString *dateString = [formatter stringFromDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"date"]];
     
     // from array
-    cell.labelName.text = [_allTasks objectAtIndex:indexPath.row].taskName;
-    cell.labelDate.text = [_allTasks objectAtIndex:indexPath.row].taskDate;
+    cell.labelName.text = [[_allTasks objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.labelDate.text = dateString;
 
-    if([[_allTasks objectAtIndex:indexPath.row].taskPriority isEqualToString: @"High"]){
+    if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
         cell.imagePriority.tintColor = [UIColor redColor];
-    }else if([[_allTasks objectAtIndex:indexPath.row].taskPriority isEqualToString: @"Medium"]){
+    }else if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
         cell.imagePriority.tintColor = [UIColor blueColor];
     }else{
         cell.imagePriority.tintColor = [UIColor greenColor];
     }
     
-    
-    // from user defaults
 
-    
     
     
     return  cell;

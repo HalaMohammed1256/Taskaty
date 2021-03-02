@@ -9,19 +9,5 @@
 
 @implementation DataModel
 
--(id) initWithName : (NSString*) name description : (NSString*) description priority :  (NSString*) priority date : (NSString*) date state : (NSString*) state{
-    
-    self = [super init];
-    
-    if(self){
-        [_taskDate isEqual: date];
-        [_taskName isEqual: name];
-        [_taskState isEqual: state];
-        [_taskPriority isEqual: priority];
-        [_taskDescription isEqual: description];
-    }
-    
-    return self;
-}
 
 @end

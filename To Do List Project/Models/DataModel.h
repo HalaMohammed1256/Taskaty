@@ -14,10 +14,9 @@
 @property NSString* taskDescription;
 @property NSString* taskPriority;
 @property NSString* taskState;
-@property NSString* taskDate;
+@property NSDate* taskDate;
 
 
--(id) initWithName : (NSString*) taskName description : (NSString*) taskDescription priority :  (NSString*) taskPriority date : (NSString*) taskDate state : (NSString*) taskState;
 
 @end
 

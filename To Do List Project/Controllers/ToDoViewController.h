@@ -15,7 +15,9 @@
 
 @interface ToDoViewController : ViewController <UITableViewDelegate, UITableViewDataSource, AddDelegation>
 
-@property NSMutableArray<DataModel*> *allTasks;
+@property NSMutableArray<NSMutableDictionary*> *allTasks;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *allTaskTableView;
 @property (weak, nonatomic) IBOutlet UITableView *tasksTableView;
 
