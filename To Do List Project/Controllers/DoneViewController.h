@@ -6,8 +6,10 @@
 //
 
 #import "ViewController.h"
+#import "DoneTableViewCell.h"
 
 @interface DoneViewController : ViewController <UITableViewDelegate, UITableViewDataSource>
+
 
 @end
 

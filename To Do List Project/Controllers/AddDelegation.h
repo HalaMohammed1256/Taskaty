@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DataModel.h"
 
 @protocol AddDelegation <NSObject>
 
--(
+-(void) addTask: (DataModel*) dataModel;
 
 @end
 

@@ -6,9 +6,12 @@
 //
 
 #import "ViewController.h"
+#import "InProgressTableViewCell.h"
 
 
 @interface InProgressViewController : ViewController <UITableViewDelegate, UITableViewDataSource>
+
+
 
 @end
 

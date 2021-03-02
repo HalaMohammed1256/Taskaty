@@ -1,20 +1,25 @@
+//
+//  DoneViewController.m
+//  To Do List Project
+//
+//  Created by Hala on 28/02/2021.
+//
 
+#import "DoneViewController.h"
 
-#import "ToDoViewController.h"
-
-@interface ToDoViewController ()
+@interface DoneViewController ()
 
 @end
 
-@implementation ToDoViewController
+@implementation DoneViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
 }
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
@@ -24,9 +29,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    DoneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    cell.textLabel.text = @"iti";
+    cell.labelName.text = @"iti";
+    cell.labelDate.text = @"20/4/2021";
+    cell.imagePriority.tintColor = [UIColor blueColor];
     
     return  cell;
     
@@ -41,15 +48,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
-
-
-- (IBAction)addTaskAction:(id)sender {
-    
-    AddTaskViewController *addTask = [self.storyboard instantiateViewControllerWithIdentifier:@"add_task"];
-    
-    [self.navigationController pushViewController:addTask animated:YES];
-}
-
 
 
 @end
