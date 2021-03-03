@@ -11,10 +11,14 @@
 #import "ShowDataViewController.h"
 #import "DataModel.h"
 #import "AddDelegation.h"
-#import "DataModelManager.h"
+//#import "DataModelManager.h"
+#import "EditDelegation.h"
+#import "EditTaskViewController.h"
 
 
-@interface ToDoViewController : ViewController <UITableViewDelegate, UITableViewDataSource, AddDelegation>
+@interface ToDoViewController : ViewController <UITableViewDelegate, UITableViewDataSource, AddDelegation, EditDelegation>
+
+@property NSMutableArray<NSMutableDictionary*> *allTasks;
 
 
 @property (weak, nonatomic) IBOutlet UITableView *allTaskTableView;

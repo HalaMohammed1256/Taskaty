@@ -11,6 +11,11 @@
 @interface DataModelManager : NSObject
 
 @property NSMutableArray<NSMutableDictionary*> *allTasks;
+
+@property NSMutableArray<NSMutableDictionary*> *inProgressTasks;
+
+@property NSMutableArray<NSMutableDictionary*> *doneTasks;
+
 @property NSUserDefaults *defaults;
 
 

@@ -5,9 +5,12 @@
     NSArray *priorityArray;
     NSArray *stateArray;
     
+    NSString* state;
     NSString *priority;
     
     NSInteger selectedIndex;
+    
+    NSMutableDictionary *editDictionary;
 }
 
 @end
@@ -17,22 +20,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
-//    NSString *dateString = [formatter stringFromDate: _showDate];
     
+    editDictionary = [NSMutableDictionary new];
     
     priorityArray = @[@"High", @"Medium", @"Low"];
+    stateArray = @[@"To Do", @"In Progress", @"Done"];
+
+    
+    priority = [NSString new];
     
     self.priorityPicker.delegate = self;
     self.priorityPicker.dataSource = self;
+    
+    self.statePicker.delegate = self;
+    self.statePicker.dataSource = self;
     
     _editNameTextField.text = _editName;
     _editDescriptionTextView.text = _editDescription;
     _editDatePicker.date = _editDate;
     priority = _editPriority;
+    state = _editState;
     
-    
+
     
     selectedIndex = (NSInteger)[priorityArray indexOfObject:priority];
         
@@ -47,35 +56,50 @@
 }
 
 -(void) saveTaskAction{
+        
+    DataModel *model = [DataModel new];
+    model.taskName = _editNameTextField.text;
+    model.taskDate = _editDatePicker.date;
+    model.taskDescription = _editDescriptionTextView.text;
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"Do you want to save changes" preferredStyle:UIAlertControllerStyleActionSheet];
+    if(priority == nil){
+        model.taskPriority = priorityArray[0];
+    }else{
+        model.taskPriority = priority;
+    }
+    
+    if(state == nil){
+        model.taskState = stateArray[0];
+    }else{
+        model.taskState = state;
+    }
+    
+    
+    [editDictionary setObject:model.taskName forKey:@"name"];
+    [editDictionary setObject:model.taskDescription forKey:@"description"];
+    [editDictionary setObject:model.taskPriority forKey:@"priority"];
+    [editDictionary setObject:model.taskDate forKey:@"date"];
+    [editDictionary setObject:model.taskState forKey:@"state"];
+        
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"Do you want to save changes?!" preferredStyle:UIAlertControllerStyleActionSheet];
     
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        // if yes
+        [_showDelegation showTaskDelegation:editDictionary :_rowIndex];
         
-        
-        
-        
-        
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-        // if cancel
         [self.navigationController popViewControllerAnimated:YES];
         
     }];
     
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
     [alert addAction:yesAction];
     [alert addAction:cancelAction];
     
-    [self presentViewController:alert animated:YES completion:^{
-            //
-    }];
+    [self presentViewController:alert animated:YES completion:nil];
     
 }
 
@@ -87,8 +111,17 @@
 
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
+    NSInteger numberOfRows = 0;
     
-    NSInteger numberOfRows = [priorityArray count];
+    switch (pickerView.tag) {
+        case 1:
+            numberOfRows = [priorityArray count];
+            break;
+            
+        case 2:
+            numberOfRows = [stateArray count];
+            break;
+    }
     
     return numberOfRows;
 }
@@ -96,7 +129,17 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     
-    NSString *titleForRow = priorityArray[row];
+    NSString *titleForRow;
+    
+    switch (pickerView.tag) {
+        case 1:
+            titleForRow = priorityArray[row];
+            break;
+            
+        case 2:
+            titleForRow = stateArray[row];
+            break;
+    }
     
     return titleForRow;
 }
@@ -109,7 +152,15 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
     
-    priority = priorityArray[row];
+    switch (pickerView.tag) {
+        case 1:
+            priority = priorityArray[row];
+            break;
+            
+        case 2:
+            state = stateArray[row];
+            break;
+    }
     
 }
 

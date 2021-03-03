@@ -4,7 +4,10 @@
 
 @interface AddTaskViewController (){
     NSArray *priorityArray;
-    NSString* priority;
+    NSMutableString* priority;
+    
+    NSArray *stateArray;
+//    NSMutableString* state;
     
     NSMutableDictionary *dataDictionary;
     
@@ -20,10 +23,9 @@
     dataDictionary = [NSMutableDictionary new];
     
     priorityArray = @[@"High", @"Medium", @"Low"];
+    stateArray = @[@"To Do", @"In Progress", @"Done"];
         
-    // to set priority on select data picker
-    priority = [NSString new];
-    
+
     // to tell the priority data picker that self (todo view) conform the required data picker delegation
     self.priorityPicker.delegate = self;
     self.priorityPicker.dataSource = self;
@@ -41,15 +43,14 @@
     model.taskName = _addNameTextField.text;
     model.taskDate = _addDatePicker.date; // now
     model.taskDescription = _addDescriptionTextView.text;
+    model.taskState = stateArray[0];
     
     if(priority == nil){
         model.taskPriority = priorityArray[0];
     }else{
         model.taskPriority = priority;
     }
-    
-    model.taskState = @"In progress";
-    
+        
     [dataDictionary setObject:model.taskName forKey:@"name"];
     [dataDictionary setObject:model.taskDescription forKey:@"description"];
     [dataDictionary setObject:model.taskPriority forKey:@"priority"];

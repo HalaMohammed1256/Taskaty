@@ -10,7 +10,7 @@
 
 @protocol EditDelegation <NSObject>
 
--(void) editTaskDelegation : (NSMutableDictionary*) dictionary : (NSNumber*) index;
+-(void) editTaskDelegation : (NSMutableDictionary*) dictionary : (NSInteger) indexValue;
 
 @end
 
