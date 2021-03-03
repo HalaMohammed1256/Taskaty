@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B52480925EECBB100696AA6 /* ShowDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B52480825EECBB100696AA6 /* ShowDataViewController.m */; };
+		2B52480E25EEF02200696AA6 /* DataModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B52480D25EEF02200696AA6 /* DataModelManager.m */; };
 		2B675DB825EC272400DAD846 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DB725EC272400DAD846 /* AppDelegate.m */; };
 		2B675DBB25EC272400DAD846 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DBA25EC272400DAD846 /* SceneDelegate.m */; };
 		2B675DBE25EC272400DAD846 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DBD25EC272400DAD846 /* ViewController.m */; };
@@ -26,6 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B52480725EECBB100696AA6 /* ShowDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowDataViewController.h; sourceTree = "<group>"; };
+		2B52480825EECBB100696AA6 /* ShowDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowDataViewController.m; sourceTree = "<group>"; };
+		2B52480C25EEF02200696AA6 /* DataModelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModelManager.h; sourceTree = "<group>"; };
+		2B52480D25EEF02200696AA6 /* DataModelManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataModelManager.m; sourceTree = "<group>"; };
+		2B52481525EF13A700696AA6 /* EditDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditDelegation.h; sourceTree = "<group>"; };
 		2B675DB325EC272400DAD846 /* To Do List Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Do List Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B675DB625EC272400DAD846 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2B675DB725EC272400DAD846 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -106,25 +113,28 @@
 		2BB7401625ED8350007FB9DB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2B675DEC25EC463000DAD846 /* AddDelegation.h */,
 				2B675DE425EC3D3A00DAD846 /* AddTaskViewController.h */,
 				2B675DE525EC3D3A00DAD846 /* AddTaskViewController.m */,
-				2B675DE825EC42DF00DAD846 /* EditTaskViewController.h */,
-				2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */,
-				2B675DBC25EC272400DAD846 /* ViewController.h */,
-				2B675DBD25EC272400DAD846 /* ViewController.m */,
-				2B675DD025EC31BC00DAD846 /* ToDoViewController.h */,
-				2B675DD125EC31BC00DAD846 /* ToDoViewController.m */,
-				2B675DD425EC31CD00DAD846 /* InProgressViewController.h */,
-				2B675DD525EC31CD00DAD846 /* InProgressViewController.m */,
-				2B675DD825EC31DA00DAD846 /* DoneViewController.h */,
-				2B675DD925EC31DA00DAD846 /* DoneViewController.m */,
-				2BB73FD625ED1DD4007FB9DB /* TodoTableViewCell.h */,
-				2BB73FD725ED1DD4007FB9DB /* TodoTableViewCell.m */,
-				2BB73FDA25ED1DEC007FB9DB /* InProgressTableViewCell.h */,
-				2BB73FDB25ED1DEC007FB9DB /* InProgressTableViewCell.m */,
 				2BB73FDE25ED1E33007FB9DB /* DoneTableViewCell.h */,
 				2BB73FDF25ED1E33007FB9DB /* DoneTableViewCell.m */,
-				2B675DEC25EC463000DAD846 /* AddDelegation.h */,
+				2B675DD825EC31DA00DAD846 /* DoneViewController.h */,
+				2B675DD925EC31DA00DAD846 /* DoneViewController.m */,
+				2B675DE825EC42DF00DAD846 /* EditTaskViewController.h */,
+				2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */,
+				2BB73FDA25ED1DEC007FB9DB /* InProgressTableViewCell.h */,
+				2BB73FDB25ED1DEC007FB9DB /* InProgressTableViewCell.m */,
+				2B675DD425EC31CD00DAD846 /* InProgressViewController.h */,
+				2B675DD525EC31CD00DAD846 /* InProgressViewController.m */,
+				2B52480725EECBB100696AA6 /* ShowDataViewController.h */,
+				2B52480825EECBB100696AA6 /* ShowDataViewController.m */,
+				2BB73FD625ED1DD4007FB9DB /* TodoTableViewCell.h */,
+				2BB73FD725ED1DD4007FB9DB /* TodoTableViewCell.m */,
+				2B675DD025EC31BC00DAD846 /* ToDoViewController.h */,
+				2B675DD125EC31BC00DAD846 /* ToDoViewController.m */,
+				2B675DBC25EC272400DAD846 /* ViewController.h */,
+				2B675DBD25EC272400DAD846 /* ViewController.m */,
+				2B52481525EF13A700696AA6 /* EditDelegation.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -143,6 +153,8 @@
 			children = (
 				2B675DE025EC3C1B00DAD846 /* DataModel.h */,
 				2B675DE125EC3C1B00DAD846 /* DataModel.m */,
+				2B52480C25EEF02200696AA6 /* DataModelManager.h */,
+				2B52480D25EEF02200696AA6 /* DataModelManager.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -217,6 +229,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B675DBE25EC272400DAD846 /* ViewController.m in Sources */,
+				2B52480925EECBB100696AA6 /* ShowDataViewController.m in Sources */,
+				2B52480E25EEF02200696AA6 /* DataModelManager.m in Sources */,
 				2B675DDA25EC31DA00DAD846 /* DoneViewController.m in Sources */,
 				2B675DE225EC3C1B00DAD846 /* DataModel.m in Sources */,
 				2B675DB825EC272400DAD846 /* AppDelegate.m in Sources */,

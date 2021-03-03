@@ -17,6 +17,5 @@
 @property NSDate* taskDate;
 
 
-
 @end
 

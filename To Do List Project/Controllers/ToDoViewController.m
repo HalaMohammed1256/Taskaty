@@ -4,7 +4,9 @@
 #
 
 @interface ToDoViewController (){
-    NSUserDefaults *defaults;
+    
+    DataModelManager *manager;
+    NSUserDefaults *d;
         
 }
 
@@ -21,15 +23,19 @@
     _tasksTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     // declear user defaults
-    defaults = [NSUserDefaults standardUserDefaults];
+    manager = [DataModelManager new];
+    d = [NSUserDefaults standardUserDefaults];
+    [manager setDefaults:d];
+    
     
     
     // NSMutableArray for all tasks
-    if ([[defaults objectForKey:@"all_todo_tasks"] mutableCopy] == nil) {
-        _allTasks = [NSMutableArray new];
+    if ([[[manager defaults] objectForKey:@"all_todo_tasks"] mutableCopy] == nil) {
+        [manager setAllTasks:[NSMutableArray new]];
     }else{
-        _allTasks = [[defaults objectForKey:@"all_todo_tasks"] mutableCopy];
+        [manager setAllTasks:[[[manager defaults] objectForKey:@"all_todo_tasks"] mutableCopy]];
     }
+    
     
     
     // add bar button
@@ -49,6 +55,8 @@
     //add action
     
     
+    
+    
 }
 
 // action on add bar button
@@ -66,13 +74,11 @@
 
 - (void)addTask:(NSMutableDictionary *)dataDictionary{
     
-    [_allTasks addObject: dataDictionary];
-    
-    
-    [defaults setObject:_allTasks forKey:@"all_todo_tasks"];
-    
-    [defaults synchronize];
+    [[manager allTasks] addObject: dataDictionary];
+    [[manager defaults] setObject:[manager allTasks] forKey:@"all_todo_tasks"];
+    [[manager defaults] synchronize];
     [_allTaskTableView reloadData];
+    
 }
     
 
@@ -86,26 +92,25 @@
 
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_allTasks count];
+    
+    return [[manager allTasks] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     TodoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    
 
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
-    NSString *dateString = [formatter stringFromDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"date"]];
+    NSString *dateString = [formatter stringFromDate:[[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"date"]];
     
-    // from array
-    cell.labelName.text = [[_allTasks objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.labelDate.text = dateString;
+    cell.labelName.text = [[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"name"];
 
-    if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
+    if([[[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
         cell.imagePriority.tintColor = [UIColor redColor];
-    }else if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
+    }else if([[[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
         cell.imagePriority.tintColor = [UIColor blueColor];
     }else{
         cell.imagePriority.tintColor = [UIColor greenColor];
@@ -113,26 +118,44 @@
     
 
     
-    
     return  cell;
     
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [_allTasks removeObjectAtIndex:indexPath.row];
+    
+    [[manager allTasks] removeObjectAtIndex:indexPath.row];
     
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [[manager defaults] setObject:[manager allTasks] forKey:@"all_todo_tasks"];
+    
+    [[manager defaults] synchronize];
+    [_allTaskTableView reloadData];
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    EditTaskViewController *editTask = [self.storyboard instantiateViewControllerWithIdentifier:@"edit_task"];
     
-    [self.navigationController pushViewController:editTask animated:YES];
+    ShowDataViewController *showTask = [self.storyboard instantiateViewControllerWithIdentifier:@"show_task"];
     
-
+    
+    
+    [showTask setShowName:[[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"name"]];
+    
+    [showTask setShowDescription:[[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"description"]];
+    
+    [showTask setShowPriority:[[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"priority"]];
+    
+    [showTask setShowDate:[[[manager allTasks] objectAtIndex:indexPath.row] objectForKey:@"date"]];
+    
+    
+    [showTask setIndex: [NSNumber numberWithInteger:indexPath.row]];
+        
+    [self.navigationController pushViewController:showTask animated:YES];
+    
 }
 
 

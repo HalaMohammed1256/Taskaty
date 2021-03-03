@@ -17,9 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    priorityArray = @[@"High", @"Medium", @"Low"];
     dataDictionary = [NSMutableDictionary new];
     
+    priorityArray = @[@"High", @"Medium", @"Low"];
+        
     // to set priority on select data picker
     priority = [NSString new];
     

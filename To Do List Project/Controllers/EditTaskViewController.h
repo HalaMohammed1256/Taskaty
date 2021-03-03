@@ -20,6 +20,13 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *editDatePicker;
 
 
+@property NSString* editName;
+@property NSString* editDescription;
+@property NSString* editPriority;
+@property NSString* editState;
+@property NSDate* editDate;
+@property NSNumber *index;
+
 
 @end
 
