@@ -8,12 +8,16 @@
 #import <UIKit/UIKit.h>
 #import "showDelegation.h"
 #import "DataModel.h"
+#import "InProgressEditDelegation.h"
+#import "DoneDelegation.h"
 
 
 @interface EditTaskViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 
 @property id <showDelegation> showDelegation;
+@property id <InProgressEditDelegation> inProgressEditDelegation;
+@property id <DoneDelegation> doneEditDelegation;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *priorityPicker;
 

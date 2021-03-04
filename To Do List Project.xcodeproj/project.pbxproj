@@ -58,7 +58,9 @@
 		2B675DE825EC42DF00DAD846 /* EditTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditTaskViewController.h; sourceTree = "<group>"; };
 		2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditTaskViewController.m; sourceTree = "<group>"; };
 		2B675DEC25EC463000DAD846 /* AddDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDelegation.h; sourceTree = "<group>"; };
+		2B8DCC8325F041CB00E1B220 /* InProgressEditDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProgressEditDelegation.h; sourceTree = "<group>"; };
 		2BA80EAB25EFB5DA0045B748 /* showDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = showDelegation.h; sourceTree = "<group>"; };
+		2BAE4B8725F0F08F00CF165F /* DoneDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoneDelegation.h; sourceTree = "<group>"; };
 		2BB73FD625ED1DD4007FB9DB /* TodoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoTableViewCell.h; sourceTree = "<group>"; };
 		2BB73FD725ED1DD4007FB9DB /* TodoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodoTableViewCell.m; sourceTree = "<group>"; };
 		2BB73FDA25ED1DEC007FB9DB /* InProgressTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProgressTableViewCell.h; sourceTree = "<group>"; };
@@ -137,6 +139,8 @@
 				2B675DBD25EC272400DAD846 /* ViewController.m */,
 				2B52481525EF13A700696AA6 /* EditDelegation.h */,
 				2BA80EAB25EFB5DA0045B748 /* showDelegation.h */,
+				2B8DCC8325F041CB00E1B220 /* InProgressEditDelegation.h */,
+				2BAE4B8725F0F08F00CF165F /* DoneDelegation.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

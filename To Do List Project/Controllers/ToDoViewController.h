@@ -14,11 +14,15 @@
 //#import "DataModelManager.h"
 #import "EditDelegation.h"
 #import "EditTaskViewController.h"
+#import "InProgressViewController.h"
 
 
 @interface ToDoViewController : ViewController <UITableViewDelegate, UITableViewDataSource, AddDelegation, EditDelegation>
 
 @property NSMutableArray<NSMutableDictionary*> *allTasks;
+@property NSMutableArray<NSMutableDictionary*> *inProgressTasks;
+@property NSMutableArray<NSMutableDictionary*> *doneTasks;
+
 
 
 @property (weak, nonatomic) IBOutlet UITableView *allTaskTableView;

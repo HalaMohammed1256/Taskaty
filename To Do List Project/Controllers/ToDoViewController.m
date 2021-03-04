@@ -5,6 +5,13 @@
 
 @interface ToDoViewController (){
     NSUserDefaults *defaults;
+    
+    NSString *stateForRemove;
+    NSMutableDictionary *dictionaryForRemove;
+    NSMutableDictionary *dictionaryForEdit;
+    
+    ShowDataViewController *showTask;
+    InProgressViewController *progressView;
 }
 @end
 
@@ -20,6 +27,8 @@
     
     // declear user defaults
     defaults = [NSUserDefaults standardUserDefaults];
+    dictionaryForRemove = [NSMutableDictionary new];
+    dictionaryForEdit = [NSMutableDictionary new];
 
     // NSMutableArray for all tasks
     if ([[defaults objectForKey:@"todo_tasks"] mutableCopy] == nil) {
@@ -27,8 +36,24 @@
     }else{
         _allTasks = [[defaults objectForKey:@"todo_tasks"] mutableCopy];
     }
+    
+    // NSMutableArray for in progress tasks
+    if ([[defaults objectForKey:@"in_progress_tasks"] mutableCopy] == nil) {
+        _inProgressTasks = [NSMutableArray new];
+    }else{
+        _inProgressTasks = [[defaults objectForKey:@"in_progress_tasks"] mutableCopy];
+    }
+    
+    // NSMutableArray for done tasks
+    if ([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil) {
+        _doneTasks = [NSMutableArray new];
+    }else{
+        _doneTasks = [[defaults objectForKey:@"done_tasks"] mutableCopy];
+    }
 
     
+    showTask = [self.storyboard instantiateViewControllerWithIdentifier:@"show_task"];
+    progressView = [self.storyboard instantiateViewControllerWithIdentifier:@"progress_task"];
     
     
     // add bar button
@@ -69,6 +94,27 @@
 
 
 
+// remove object
+
+-(void) removeObject : (NSInteger)selectIndex{
+
+    [showTask setEditDedegation:self];
+
+    [showTask setShowName:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"name"]];
+
+    [showTask setShowDescription:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"description"]];
+
+    [showTask setShowPriority:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"priority"]];
+
+    [showTask setShowDate:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"date"]];
+
+    [showTask setShowState:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"state"]];
+
+}
+
+
+
+
 // add task delegation method
 - (void)addTask:(NSMutableDictionary *)dataDictionary{
     
@@ -82,12 +128,92 @@
 // edit task delegation
 - (void)editTaskDelegation:(NSMutableDictionary *)dictionary :(NSInteger)indexValue{
     
-    NSLog(@"%ld\n", indexValue);
     
-    [_allTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+    stateForRemove = [dictionary objectForKey:@"state"];
+    printf("%s\n", [stateForRemove UTF8String]);
+    
+    
+    //[_allTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+    [_allTasks removeObjectAtIndex:indexValue];
+    [_allTasks addObject:dictionary];
+    
     [defaults setObject:_allTasks forKey:@"todo_tasks"];
+
+
+    if([[dictionary objectForKey:@"state"] isEqual:@"In Progress"]){
+        // in progress
+        if([[defaults objectForKey:@"in_progress_tasks"] mutableCopy] == nil || [[defaults objectForKey:@"in_progress_tasks"] count] == 0){
+            [_inProgressTasks removeAllObjects];
+            [_inProgressTasks addObject: dictionary];
+        }else if([_inProgressTasks containsObject: dictionaryForEdit]){
+            
+            [_inProgressTasks removeObjectIdenticalTo:dictionaryForEdit];
+            [_inProgressTasks addObject:dictionary];
+            
+        }else{
+            [_inProgressTasks addObject: dictionary];
+        }
+        [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
+
+
+    }else if ([[dictionary objectForKey:@"state"] isEqual:@"Done"]){
+        // done
+        if([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil || [[defaults objectForKey:@"done_tasks"] count] == 0){
+            [_doneTasks removeAllObjects];
+            [_doneTasks addObject: dictionary];
+        }else if([_doneTasks containsObject: dictionaryForEdit]){
+            
+            [_doneTasks removeObjectIdenticalTo:dictionaryForEdit];
+            [_doneTasks addObject:dictionary];
+            
+        }else{
+            [_doneTasks addObject: dictionary];
+        }
+        
+        
+        [defaults setObject:_doneTasks forKey:@"done_tasks"];
+    }
+
+
     [defaults synchronize];
     [_allTaskTableView reloadData];
+
+    
+    
+    ////////////////////////////////////////////////////////
+    
+    
+    
+//    if([[dictionary objectForKey:@"state"] isEqual:@"To Do"]){
+//        // to do
+//        [_allTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+//        [defaults setObject:_allTasks forKey:@"todo_tasks"];
+//
+//
+//    }else if([[dictionary objectForKey:@"state"] isEqual:@"In Progress"]){
+//        // in progress
+//        if([[defaults objectForKey:@"in_progress_tasks"] mutableCopy] == nil){
+//            [_inProgressTasks addObject: dictionary];
+//        }else{
+//            [_inProgressTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+//        }
+//        [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
+//
+//
+//    }else{
+//        // done
+//        if([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil){
+//            [_doneTasks addObject: dictionary];
+//        }else{
+//            [_doneTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+//        }
+//        [defaults setObject:_doneTasks forKey:@"done_tasks"];
+//    }
+    
+    ///////////////////////////////////////////////////////
+    
+    
+    
     
 }
 
@@ -133,18 +259,44 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
+    dictionaryForRemove = [_allTasks objectAtIndex:indexPath.row];
+    
+    // if todo => remove from alltasks only
     [_allTasks removeObjectAtIndex:indexPath.row];
+    [defaults setObject:_allTasks forKey:@"todo_tasks"];
+    
+    
+    if([stateForRemove isEqual:@"In Progress"]){
+        
+        // if inprogress => remove from alltasks and inprogress
+        [_inProgressTasks removeObjectIdenticalTo: dictionaryForRemove];
+        [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
+        
+    }else if([stateForRemove isEqual:@"Done"]){
+        
+        // if done => remove from alltasks and done
+        [_doneTasks removeObjectIdenticalTo: dictionaryForRemove];
+        [defaults setObject:_doneTasks forKey:@"done_tasks"];
+
+        
+    }
+    
+    
+    
     
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    
-    [defaults setObject:_allTasks forKey:@"todo_tasks"];
     
     [defaults synchronize];
     [_allTaskTableView reloadData];
     
+    
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    dictionaryForEdit = [_allTasks objectAtIndex:indexPath.row];
     
     
     ShowDataViewController *showTask = [self.storyboard instantiateViewControllerWithIdentifier:@"show_task"];
@@ -158,7 +310,7 @@
     [showTask setShowPriority:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"]];
 
     [showTask setShowDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"date"]];
-    
+
     [showTask setShowState:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"state"]];
         
 

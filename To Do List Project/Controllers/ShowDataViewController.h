@@ -9,9 +9,8 @@
 #import "EditTaskViewController.h"
 #import "ToDoViewController.h"
 #import "showDelegation.h"
-//#import "DataModelManager.h"
+#import "DataModelManager.h"
 #import "EditDelegation.h"
-
 
 @interface ShowDataViewController : UIViewController <showDelegation>
 

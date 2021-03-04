@@ -16,13 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="4bv-qr-sC8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4bv-qr-sC8">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="134" id="4yf-a8-1an" customClass="DoneTableViewCell">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="134"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4yf-a8-1an" id="cQd-ID-l8y">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="134"/>
@@ -31,8 +30,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="k3L-XN-Koy">
                                                     <rect key="frame" x="20" y="11" width="374" height="112"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dqz-Na-GEr">
-                                                            <rect key="frame" x="0.0" y="1" width="118" height="109.5"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dqz-Na-GEr">
+                                                            <rect key="frame" x="0.0" y="1" width="118" height="110"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psg-dd-93K">
                                                             <rect key="frame" x="128" y="0.0" width="118" height="112"/>
@@ -56,6 +55,11 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="k3L-XN-Koy" secondAttribute="trailing" id="jFY-V3-zsy"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="imagePriority" destination="dqz-Na-GEr" id="M80-cf-6QN"/>
+                                            <outlet property="labelDate" destination="bM7-Ua-1n4" id="4uO-SO-DGd"/>
+                                            <outlet property="labelName" destination="psg-dd-93K" id="3f2-kf-b00"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -68,6 +72,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="doG-u5-JXu"/>
+                    <connections>
+                        <outlet property="doneTableView" destination="4bv-qr-sC8" id="49P-9n-9gG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -76,18 +83,17 @@
         <!--In Progress View Controller-->
         <scene sceneID="Ts6-kH-Cfs">
             <objects>
-                <viewController id="vmG-A9-hfP" customClass="InProgressViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="progress_task" id="vmG-A9-hfP" customClass="InProgressViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d8i-a0-oto">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="vV5-dx-ej4">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vV5-dx-ej4">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="134" id="dDd-Ct-gGQ" customClass="InProgressTableViewCell">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="134"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dDd-Ct-gGQ" id="OGD-vq-T8M">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="134"/>
@@ -96,8 +102,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lz0-Cf-SsQ">
                                                     <rect key="frame" x="20" y="11" width="374" height="112"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="d1Y-xp-JYg">
-                                                            <rect key="frame" x="0.0" y="1" width="118" height="109.5"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="d1Y-xp-JYg">
+                                                            <rect key="frame" x="0.0" y="1" width="118" height="110"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Zd-br-JXE">
                                                             <rect key="frame" x="128" y="0.0" width="118" height="112"/>
@@ -121,6 +127,11 @@
                                                 <constraint firstItem="lz0-Cf-SsQ" firstAttribute="top" secondItem="OGD-vq-T8M" secondAttribute="topMargin" id="zgE-iM-Lzc"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="imagePriority" destination="d1Y-xp-JYg" id="i0S-40-MG0"/>
+                                            <outlet property="labelDate" destination="SnM-bS-4s7" id="ruH-h8-bCI"/>
+                                            <outlet property="labelName" destination="1Zd-br-JXE" id="thW-g5-0b8"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -131,10 +142,19 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zMR-Z0-zVN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                     </view>
                     <navigationItem key="navigationItem" id="voI-EL-XBW"/>
+                    <connections>
+                        <outlet property="inProgressTableView" destination="vV5-dx-ej4" id="cHj-uY-mHT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KC1-Vf-fIY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="2IB-XJ-nAz">
+                    <connections>
+                        <action selector="reloadAction:" destination="vmG-A9-hfP" id="Yaw-Z0-cDY"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4820" y="729"/>
         </scene>
@@ -554,7 +574,6 @@
     </scenes>
     <resources>
         <image name="arrow.up" catalog="system" width="120" height="128"/>
-        <image name="arrow.up.square.fill" catalog="system" width="128" height="114"/>
         <image name="checkmark.rectangle" catalog="system" width="128" height="93"/>
         <image name="list.bullet.rectangle" catalog="system" width="128" height="93"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>

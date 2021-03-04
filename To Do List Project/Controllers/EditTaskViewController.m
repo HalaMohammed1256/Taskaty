@@ -8,9 +8,11 @@
     NSString* state;
     NSString *priority;
     
-    NSInteger selectedIndex;
+    NSString *pageName;
     
+    NSInteger selectedIndex, stateIndex;
     NSMutableDictionary *editDictionary;
+    
 }
 
 @end
@@ -40,12 +42,17 @@
     _editDatePicker.date = _editDate;
     priority = _editPriority;
     state = _editState;
+    pageName = state;
+    
     
 
     
     selectedIndex = (NSInteger)[priorityArray indexOfObject:priority];
-        
     [self.priorityPicker selectRow:selectedIndex inComponent:0 animated:YES];
+    
+    
+    stateIndex = (NSInteger)[stateArray indexOfObject:state];
+    [self.statePicker selectRow:stateIndex inComponent:0 animated:YES];
     
    
     // save bar button
@@ -88,7 +95,15 @@
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        [_showDelegation showTaskDelegation:editDictionary :_rowIndex];
+        if([self->pageName isEqual:@"To Do"]){
+            [self->_showDelegation showTaskDelegation:self->editDictionary :self->_rowIndex];
+        }else if([self->pageName isEqual:@"In Progress"]){
+            [self->_inProgressEditDelegation editTaskDelegation:self->editDictionary :self->_rowIndex];
+        }else if([self->pageName isEqual:@"Done"]){
+            [self->_doneEditDelegation doneTaskDelegation:self->editDictionary :self->_rowIndex];
+        }
+
+        
         
         [self.navigationController popViewControllerAnimated:YES];
         
