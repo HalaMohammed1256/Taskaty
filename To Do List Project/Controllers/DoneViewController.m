@@ -9,9 +9,14 @@
 
 @interface DoneViewController (){
     NSUserDefaults *defaults;
+    
+    BOOL isFilled;
+    NSMutableArray *filteredArray;
+    
 }
 
 @end
+
 
 @implementation DoneViewController
 
@@ -22,6 +27,10 @@
     
     // to remove empty cell in table
     _doneTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    // search delegate
+    self.doneSearchBar.delegate = self;
+    isFilled = false;
     
     
     // NSMutableArray for done tasks
@@ -35,6 +44,34 @@
     [_doneTableView reloadData];
     
 }
+
+
+
+// search method
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+
+    if (searchText.length == 0) {
+        isFilled = false;
+    }else{
+        isFilled = true;
+        filteredArray = [NSMutableArray new];
+
+        for (NSMutableDictionary *dic in _doneTasks) {
+            NSRange taskNameRange = [[dic objectForKey:@"name"] rangeOfString:searchText options:NSCaseInsensitiveSearch];
+
+            if(taskNameRange.location != NSNotFound){
+                [filteredArray addObject:dic];
+            }
+
+        }
+
+    }
+
+    //
+        [_doneTableView reloadData];
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -70,26 +107,52 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_doneTasks count];
+    
+    if (isFilled) {
+        return [filteredArray count];
+    }else{
+        return [_doneTasks count];
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     DoneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
-    NSString *dateString = [formatter stringFromDate:[[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"date"]];
-    
-    cell.labelDate.text = dateString;
-    cell.labelName.text = [[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"name"];
+    if(isFilled){
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
+        NSString *dateString = [formatter stringFromDate:[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"creation_date"]];
+        
+        cell.labelDate.text = dateString;
+                cell.labelName.text = [[filteredArray objectAtIndex:indexPath.row] objectForKey:@"name"];
 
-    if([[[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
-        cell.imagePriority.tintColor = [UIColor redColor];
-    }else if([[[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
-        cell.imagePriority.tintColor = [UIColor blueColor];
+        if([[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
+            cell.imagePriority.tintColor = [UIColor redColor];
+        }else if([[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
+            cell.imagePriority.tintColor = [UIColor blueColor];
+        }else{
+            cell.imagePriority.tintColor = [UIColor greenColor];
+        }
+        
     }else{
-        cell.imagePriority.tintColor = [UIColor greenColor];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
+        NSString *dateString = [formatter stringFromDate:[[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"creation_date"]];
+        
+        cell.labelDate.text = dateString;
+        cell.labelName.text = [[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"name"];
+
+        if([[[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
+            cell.imagePriority.tintColor = [UIColor redColor];
+        }else if([[[_doneTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
+            cell.imagePriority.tintColor = [UIColor blueColor];
+        }else{
+            cell.imagePriority.tintColor = [UIColor greenColor];
+        }
     }
     
     return  cell;

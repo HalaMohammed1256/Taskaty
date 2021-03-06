@@ -17,13 +17,12 @@
 #import "InProgressViewController.h"
 
 
-@interface ToDoViewController : ViewController <UITableViewDelegate, UITableViewDataSource, AddDelegation, EditDelegation>
+@interface ToDoViewController : ViewController <UITableViewDelegate, UITableViewDataSource, AddDelegation, EditDelegation, UISearchBarDelegate>
 
 @property NSMutableArray<NSMutableDictionary*> *allTasks;
 @property NSMutableArray<NSMutableDictionary*> *inProgressTasks;
 @property NSMutableArray<NSMutableDictionary*> *doneTasks;
 
-@property NSMutableArray<NSMutableDictionary*> *allProjectTasks;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *tasksSearchBar;
 

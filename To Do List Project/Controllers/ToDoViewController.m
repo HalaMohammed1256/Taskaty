@@ -12,6 +12,9 @@
     
     ShowDataViewController *showTask;
     InProgressViewController *progressView;
+    
+    BOOL isFilled;
+    NSMutableArray *filteredArray;
 }
 @end
 
@@ -25,12 +28,17 @@
     // to remove empty cell in table
     _tasksTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    // search delegate
+    self.tasksSearchBar.delegate = self;
+    isFilled = false;
+    
     // declear user defaults
     defaults = [NSUserDefaults standardUserDefaults];
     dictionaryForRemove = [NSMutableDictionary new];
     dictionaryForEdit = [NSMutableDictionary new];
+    
 
-    // NSMutableArray for all tasks
+    // NSMutableArray for todo tasks
     if ([[defaults objectForKey:@"todo_tasks"] mutableCopy] == nil) {
         _allTasks = [NSMutableArray new];
     }else{
@@ -42,6 +50,7 @@
         _inProgressTasks = [NSMutableArray new];
     }else{
         _inProgressTasks = [[defaults objectForKey:@"in_progress_tasks"] mutableCopy];
+
     }
     
     // NSMutableArray for done tasks
@@ -61,13 +70,36 @@
     
     //UIBarButtonItem *addTaskButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus3"] style:UIBarButtonItemStylePlain target:self action:@selector(addTaskAction)];
 
-    [self.navigationItem setRightBarButtonItem:addTaskButton];
     
+    [self.navigationItem setRightBarButtonItem:addTaskButton];
     
     
     
 }
 
+// search method
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+
+    if (searchText.length == 0) {
+        isFilled = false;
+    }else{
+        isFilled = true;
+        filteredArray = [NSMutableArray new];
+
+        for (NSMutableDictionary *dic in _allTasks) {
+            NSRange taskNameRange = [[dic objectForKey:@"name"] rangeOfString:searchText options:NSCaseInsensitiveSearch];
+
+            if(taskNameRange.location != NSNotFound){
+                [filteredArray addObject:dic];
+            }
+
+        }
+
+    }
+
+    //
+        [_allTaskTableView reloadData];
+}
 
 
 // action on add bar button
@@ -82,22 +114,21 @@
 
 
 // remove object
-
--(void) removeObject : (NSInteger)selectIndex{
-
-    [showTask setEditDedegation:self];
-
-    [showTask setShowName:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"name"]];
-
-    [showTask setShowDescription:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"description"]];
-
-    [showTask setShowPriority:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"priority"]];
-
-    [showTask setShowDate:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"date"]];
-
-    [showTask setShowState:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"state"]];
-
-}
+//-(void) removeObject : (NSInteger)selectIndex{
+//
+//    [showTask setEditDedegation:self];
+//
+//    [showTask setShowName:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"name"]];
+//
+//    [showTask setShowDescription:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"description"]];
+//
+//    [showTask setShowPriority:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"priority"]];
+//
+//    [showTask setShowDate:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"date"]];
+//
+//    [showTask setShowState:[[_allTasks objectAtIndex:selectIndex] objectForKey:@"state"]];
+//
+//}
 
 
 
@@ -120,11 +151,8 @@
     printf("%s\n", [stateForRemove UTF8String]);
     
     
+    
     [_allTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
-    
-    //[_allTasks removeObjectAtIndex:indexValue];
-    //[_allTasks addObject:dictionary];
-    
     [defaults setObject:_allTasks forKey:@"todo_tasks"];
 
 
@@ -145,6 +173,7 @@
         [_allTasks removeObjectAtIndex:(NSUInteger)indexValue];
         [defaults setObject:_allTasks forKey:@"todo_tasks"];
         //
+        
 
     }else if ([[dictionary objectForKey:@"state"] isEqual:@"Done"]){
         // done
@@ -219,30 +248,55 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [_allTasks count];
+    if (isFilled) {
+        return [filteredArray count];
+    }else{
+        return [_allTasks count];
+    }
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     TodoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
-    NSString *dateString = [formatter stringFromDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"date"]];
-    
-    cell.labelDate.text = dateString;
-    cell.labelName.text = [[_allTasks objectAtIndex:indexPath.row] objectForKey:@"name"];
+    if(isFilled){
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
+        NSString *dateString = [formatter stringFromDate:[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"creation_date"]];
+        
+        cell.labelDate.text = dateString;
+                cell.labelName.text = [[filteredArray objectAtIndex:indexPath.row] objectForKey:@"name"];
 
-    if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
-        cell.imagePriority.tintColor = [UIColor redColor];
-    }else if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
-        cell.imagePriority.tintColor = [UIColor blueColor];
+        if([[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
+            cell.imagePriority.tintColor = [UIColor redColor];
+        }else if([[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
+            cell.imagePriority.tintColor = [UIColor blueColor];
+        }else{
+            cell.imagePriority.tintColor = [UIColor greenColor];
+        }
+        
     }else{
-        cell.imagePriority.tintColor = [UIColor greenColor];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd-MMM-yyyy hh:min a"];
+        NSString *dateString = [formatter stringFromDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"creation_date"]];
+        
+        cell.labelDate.text = dateString;
+        cell.labelName.text = [[_allTasks objectAtIndex:indexPath.row] objectForKey:@"name"];
+
+        if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
+            cell.imagePriority.tintColor = [UIColor redColor];
+        }else if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
+            cell.imagePriority.tintColor = [UIColor blueColor];
+        }else{
+            cell.imagePriority.tintColor = [UIColor greenColor];
+        }
+        
     }
     
-
     
     return  cell;
     
@@ -258,20 +312,20 @@
     [defaults setObject:_allTasks forKey:@"todo_tasks"];
     
     
-    if([stateForRemove isEqual:@"In Progress"]){
-        
-        // if inprogress => remove from alltasks and inprogress
-        [_inProgressTasks removeObjectIdenticalTo: dictionaryForRemove];
-        [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
-        
-    }else if([stateForRemove isEqual:@"Done"]){
-        
-        // if done => remove from alltasks and done
-        [_doneTasks removeObjectIdenticalTo: dictionaryForRemove];
-        [defaults setObject:_doneTasks forKey:@"done_tasks"];
-
-        
-    }
+//    if([stateForRemove isEqual:@"In Progress"]){
+//
+//        // if inprogress => remove from alltasks and inprogress
+//        [_inProgressTasks removeObjectIdenticalTo: dictionaryForRemove];
+//        [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
+//
+//    }else if([stateForRemove isEqual:@"Done"]){
+//
+//        // if done => remove from alltasks and done
+//        [_doneTasks removeObjectIdenticalTo: dictionaryForRemove];
+//        [defaults setObject:_doneTasks forKey:@"done_tasks"];
+//
+//
+//    }
     
     
     
@@ -280,7 +334,6 @@
     
     [defaults synchronize];
     [_allTaskTableView reloadData];
-    
     
     
 }
@@ -304,8 +357,7 @@
     [showTask setShowDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"date"]];
 
     [showTask setShowState:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"state"]];
-        
-
+    
     [showTask setRowIndex:indexPath.row];
     
     [self.navigationController pushViewController:showTask animated:YES];

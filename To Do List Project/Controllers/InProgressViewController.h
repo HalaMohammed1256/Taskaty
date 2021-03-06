@@ -12,12 +12,14 @@
 
 
 
-@interface InProgressViewController : ViewController <UITableViewDelegate, UITableViewDataSource, InProgressEditDelegation>
+
+@interface InProgressViewController : ViewController <UITableViewDelegate, UITableViewDataSource, InProgressEditDelegation, UISearchBarDelegate>
 
 @property NSMutableArray<NSMutableDictionary*> *inProgressTasks;
 @property NSMutableArray<NSMutableDictionary*> *doneTasks;
 
 @property (weak, nonatomic) IBOutlet UITableView *inProgressTableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *progressSearchBar;
 
 @end
 

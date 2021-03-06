@@ -10,11 +10,12 @@
 #import "DoneDelegation.h"
 #import "EditTaskViewController.h"
 
-@interface DoneViewController : ViewController <UITableViewDelegate, UITableViewDataSource, DoneDelegation>
+@interface DoneViewController : ViewController <UITableViewDelegate, UITableViewDataSource, DoneDelegation, UISearchBarDelegate>
 
 @property NSMutableArray<NSMutableDictionary*> *doneTasks;
 
 @property (weak, nonatomic) IBOutlet UITableView *doneTableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *doneSearchBar;
 
 @property NSString *test;
 

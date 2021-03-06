@@ -15,6 +15,7 @@
 @property NSString* taskPriority;
 @property NSString* taskState;
 @property NSDate* taskDate;
+@property NSDate* taskCreationDate;
 
 
 @end

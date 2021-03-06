@@ -10,6 +10,7 @@
 //    NSMutableString* state;
     
     NSMutableDictionary *dataDictionary;
+    NSDate *dateNow;
     
 }
 
@@ -21,6 +22,7 @@
     [super viewDidLoad];
     
     dataDictionary = [NSMutableDictionary new];
+    dateNow = [NSDate now];
     
     priorityArray = @[@"High", @"Medium", @"Low"];
     stateArray = @[@"To Do", @"In Progress", @"Done"];
@@ -41,7 +43,8 @@
     
     DataModel *model = [DataModel new];
     model.taskName = _addNameTextField.text;
-    model.taskDate = _addDatePicker.date; // now
+    model.taskDate = _addDatePicker.date;
+    model.taskCreationDate = dateNow;
     model.taskDescription = _addDescriptionTextView.text;
     model.taskState = stateArray[0];
     
@@ -55,6 +58,7 @@
     [dataDictionary setObject:model.taskDescription forKey:@"description"];
     [dataDictionary setObject:model.taskPriority forKey:@"priority"];
     [dataDictionary setObject:model.taskDate forKey:@"date"];
+    [dataDictionary setObject:model.taskCreationDate forKey:@"creation_date"];
     [dataDictionary setObject:model.taskState forKey:@"state"];
     
     

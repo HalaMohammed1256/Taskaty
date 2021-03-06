@@ -19,9 +19,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4bv-qr-sC8">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="NII-7A-Dpy">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="134" id="4yf-a8-1an" customClass="DoneTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="134"/>
+                                        <rect key="frame" x="0.0" y="72" width="414" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4yf-a8-1an" id="cQd-ID-l8y">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="134"/>
@@ -79,6 +84,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="doG-u5-JXu"/>
                     <connections>
+                        <outlet property="doneSearchBar" destination="NII-7A-Dpy" id="QNb-Nr-Ccs"/>
                         <outlet property="doneTableView" destination="4bv-qr-sC8" id="49P-9n-9gG"/>
                     </connections>
                 </viewController>
@@ -97,9 +103,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vV5-dx-ej4">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="YTr-Ms-uq6">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="134" id="dDd-Ct-gGQ" customClass="InProgressTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="134"/>
+                                        <rect key="frame" x="0.0" y="72" width="414" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dDd-Ct-gGQ" id="OGD-vq-T8M">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="134"/>
@@ -159,6 +170,7 @@
                     <navigationItem key="navigationItem" id="voI-EL-XBW"/>
                     <connections>
                         <outlet property="inProgressTableView" destination="vV5-dx-ej4" id="cHj-uY-mHT"/>
+                        <outlet property="progressSearchBar" destination="YTr-Ms-uq6" id="fSD-wY-8Vu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KC1-Vf-fIY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -168,7 +180,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4820" y="729"/>
+            <point key="canvasLocation" x="4818.840579710145" y="728.57142857142856"/>
         </scene>
         <!--To Do-->
         <scene sceneID="NLE-Lg-YwQ">
