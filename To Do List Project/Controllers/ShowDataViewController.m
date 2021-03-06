@@ -7,6 +7,8 @@
     NSString *dateString;
     NSDate *dateValue;
     NSMutableDictionary *editDataDictionary;
+    
+
 }
 
 @end
@@ -16,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+
 //    defaults = [NSUserDefaults standardUserDefaults];
 //
 //
@@ -61,7 +63,11 @@
     _showDateLabel.text = dateString;
     _showStateLabel.text = _showState;
         
+    
+    
+//    [self.view reloadInputViews];
 }
+
 
 
 -(void) editTaskAction{
@@ -117,20 +123,23 @@
 
 
 - (void)showTaskDelegation:(NSMutableDictionary *)dictionary :(NSInteger)indexValue{
-    _showDictionary = dictionary;
     
+    
+    
+    _showDictionary = dictionary;
+
     _showNameLabel.text = [dictionary objectForKey: @"name"];
     _showDescriptionTextView.text = [dictionary objectForKey: @"description"];
     _showPriorityLabel.text = [dictionary objectForKey: @"priority"];
-    
+
     dateString = [formatter stringFromDate: [dictionary objectForKey: @"date"]];
-    
+
     _showDateLabel.text = dateString;
     _showStateLabel.text = [dictionary objectForKey: @"state"];
-    
-    
-    dateValue = [dictionary objectForKey: @"date"];
 
+
+    dateValue = [dictionary objectForKey: @"date"];
+    
 
 }
 

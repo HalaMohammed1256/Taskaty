@@ -16,5 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *doneTableView;
 
+@property NSString *test;
+
 @end
 

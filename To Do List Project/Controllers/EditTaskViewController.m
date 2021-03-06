@@ -26,7 +26,15 @@
     editDictionary = [NSMutableDictionary new];
     
     priorityArray = @[@"High", @"Medium", @"Low"];
-    stateArray = @[@"To Do", @"In Progress", @"Done"];
+//    stateArray = @[@"To Do", @"In Progress", @"Done"];
+    
+    if([_editState isEqual:@"To Do"]) {
+        stateArray = @[@"To Do", @"In Progress", @"Done"];
+    }else if([_editState isEqual:@"In Progress"]) {
+        stateArray = @[@"In Progress", @"Done"];
+    }else{
+        stateArray = @[@"Done"];
+    }
 
     
     priority = [NSString new];
@@ -114,7 +122,8 @@
     [alert addAction:yesAction];
     [alert addAction:cancelAction];
     
-    [self presentViewController:alert animated:YES completion:nil];
+    [self presentViewController:alert animated:YES completion:^{
+    }];
     
 }
 
@@ -174,6 +183,8 @@
             
         case 2:
             state = stateArray[row];
+            
+            printf("%s\n%li", [state UTF8String], (long)row);
             break;
     }
     

@@ -11,9 +11,11 @@
 #import "EditTaskViewController.h"
 
 
+
 @interface InProgressViewController : ViewController <UITableViewDelegate, UITableViewDataSource, InProgressEditDelegation>
 
 @property NSMutableArray<NSMutableDictionary*> *inProgressTasks;
+@property NSMutableArray<NSMutableDictionary*> *doneTasks;
 
 @property (weak, nonatomic) IBOutlet UITableView *inProgressTableView;
 

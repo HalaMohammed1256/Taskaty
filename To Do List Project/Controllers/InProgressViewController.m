@@ -19,18 +19,25 @@
     [super viewDidLoad];
     
     
-    // to remove empty cell in table
+    // to remove empty cell in table 
     _inProgressTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     // declear user defaults
     defaults = [NSUserDefaults standardUserDefaults];
 
     // NSMutableArray for in progress tasks
-//    if ([[defaults objectForKey:@"in_progress_tasks"] mutableCopy] == nil) {
-//        _inProgressTasks = [NSMutableArray new];
-//    }else{
-//        _inProgressTasks = [[defaults objectForKey:@"in_progress_tasks"] mutableCopy];
-//    }
+    if ([[defaults objectForKey:@"in_progress_tasks"] mutableCopy] == nil) {
+        _inProgressTasks = [NSMutableArray new];
+    }else{
+        _inProgressTasks = [[defaults objectForKey:@"in_progress_tasks"] mutableCopy];
+    }
+    
+    // NSMutableArray for done tasks
+    if ([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil) {
+        _doneTasks = [NSMutableArray new];
+    }else{
+        _doneTasks = [[defaults objectForKey:@"done_tasks"] mutableCopy];
+    }
     
     
     [_inProgressTableView reloadData];
@@ -38,7 +45,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
+  
     if ([[defaults objectForKey:@"in_progress_tasks"] mutableCopy] == nil) {
         _inProgressTasks = [NSMutableArray new];
     }else{
@@ -50,16 +57,53 @@
 
 - (void)editTaskDelegation:(NSMutableDictionary *)dictionary :(NSInteger)indexValue{
 
-    //[_inProgressTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+//    [_inProgressTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+//
+//
+//    [_inProgressTasks removeObjectAtIndex:indexValue];
+//    [_inProgressTasks addObject:dictionary];
+//
+//
+//    [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
+//    [defaults synchronize];
+//    [_inProgressTableView reloadData];
     
-        
-    [_inProgressTasks removeObjectAtIndex:indexValue];
-    [_inProgressTasks addObject:dictionary];
     
     
+    
+    
+    
+    
+    
+    [_inProgressTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
     [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
-    [defaults synchronize];
-    [_inProgressTableView reloadData];
+
+
+    
+    if ([[dictionary objectForKey:@"state"] isEqual:@"Done"]){
+        // done
+        if([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil || [[defaults objectForKey:@"done_tasks"] count] == 0){
+            [_doneTasks removeAllObjects];
+            [_doneTasks addObject: dictionary];
+            [defaults setObject:_doneTasks forKey:@"done_tasks"];
+        }
+
+        else{
+            [_doneTasks addObject: dictionary];
+            [defaults setObject:_doneTasks forKey:@"done_tasks"];
+        }
+        
+                
+        //
+        [_inProgressTasks removeObjectAtIndex:(NSUInteger)indexValue];
+        [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
+        //
+    }
+    
+    
+        [defaults synchronize];
+        [_inProgressTableView reloadData];
+    
     
 }
 

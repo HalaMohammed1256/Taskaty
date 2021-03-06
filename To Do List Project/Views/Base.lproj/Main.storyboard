@@ -46,6 +46,12 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="psg-dd-93K" firstAttribute="leading" secondItem="dqz-Na-GEr" secondAttribute="trailing" id="7gv-eu-1ff"/>
+                                                        <constraint firstItem="bM7-Ua-1n4" firstAttribute="leading" secondItem="psg-dd-93K" secondAttribute="trailing" id="nKb-Un-2cQ"/>
+                                                        <constraint firstItem="psg-dd-93K" firstAttribute="leading" secondItem="dqz-Na-GEr" secondAttribute="trailing" id="wcz-el-Gq5"/>
+                                                        <constraint firstItem="dqz-Na-GEr" firstAttribute="leading" secondItem="k3L-XN-Koy" secondAttribute="leading" constant="-40" id="zHH-Lf-vRY"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -118,6 +124,12 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="1Zd-br-JXE" firstAttribute="leading" secondItem="d1Y-xp-JYg" secondAttribute="trailing" id="4ok-pC-njw"/>
+                                                        <constraint firstItem="d1Y-xp-JYg" firstAttribute="leading" secondItem="lz0-Cf-SsQ" secondAttribute="leading" constant="-40" id="Egp-Ht-xe1"/>
+                                                        <constraint firstItem="1Zd-br-JXE" firstAttribute="leading" secondItem="d1Y-xp-JYg" secondAttribute="trailing" id="EqU-jr-IfV"/>
+                                                        <constraint firstItem="SnM-bS-4s7" firstAttribute="leading" secondItem="1Zd-br-JXE" secondAttribute="trailing" id="ObC-5F-BLG"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -158,7 +170,7 @@
             </objects>
             <point key="canvasLocation" x="4820" y="729"/>
         </scene>
-        <!--To Do View Controller-->
+        <!--To Do-->
         <scene sceneID="NLE-Lg-YwQ">
             <objects>
                 <viewController storyboardIdentifier="todo_task" id="RBz-Yq-MQf" customClass="ToDoViewController" sceneMemberID="viewController">
@@ -166,11 +178,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ffp-Cv-LGi">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ffp-Cv-LGi">
+                                <rect key="frame" x="0.0" y="132" width="414" height="681"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="search" id="CGk-Cl-eHR">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="tintColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="161" id="7dW-3Y-NWE" customClass="TodoTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="161"/>
+                                        <rect key="frame" x="0.0" y="72" width="414" height="161"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7dW-3Y-NWE" id="7KZ-nR-kTr">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="161"/>
@@ -195,6 +214,12 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="0Og-t1-Oh5" firstAttribute="leading" secondItem="kqc-cC-I0o" secondAttribute="trailing" id="8k8-jX-IS4"/>
+                                                        <constraint firstItem="YuX-Ls-OmY" firstAttribute="leading" secondItem="R1x-NF-7P4" secondAttribute="leading" constant="-27" id="dsM-EF-wm6"/>
+                                                        <constraint firstItem="kqc-cC-I0o" firstAttribute="leading" secondItem="YuX-Ls-OmY" secondAttribute="trailing" id="fHV-4C-Pz4"/>
+                                                        <constraint firstItem="kqc-cC-I0o" firstAttribute="leading" secondItem="YuX-Ls-OmY" secondAttribute="trailing" id="hgz-C3-Zke"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -226,9 +251,10 @@
                             <constraint firstItem="Ffp-Cv-LGi" firstAttribute="top" secondItem="Yfk-vE-vAA" secondAttribute="top" id="pbm-8n-hQv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="tO4-za-Pk7"/>
+                    <navigationItem key="navigationItem" title="To Do" id="tO4-za-Pk7"/>
                     <connections>
                         <outlet property="allTaskTableView" destination="Ffp-Cv-LGi" id="oV2-4P-h0X"/>
+                        <outlet property="tasksSearchBar" destination="CGk-Cl-eHR" id="hPa-1P-6Zl"/>
                         <outlet property="tasksTableView" destination="Ffp-Cv-LGi" id="mpb-fB-Ht5"/>
                     </connections>
                 </viewController>
@@ -308,6 +334,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sv0-AW-wa4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5657" y="-64"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="X4c-1b-3NZ">
+            <objects>
+                <viewController id="Vnc-Cn-R9g" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c4r-ML-xFY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="w1h-Bl-zRJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7b0-ok-CE4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="346"/>
         </scene>
         <!--Edit Task View Controller-->
         <scene sceneID="B8r-Gj-EQN">

@@ -23,6 +23,21 @@
     // to remove empty cell in table
     _doneTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    
+    // NSMutableArray for done tasks
+    if ([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil) {
+        _doneTasks = [NSMutableArray new];
+    }else{
+        _doneTasks = [[defaults objectForKey:@"done_tasks"] mutableCopy];
+    }
+    
+    
+    [_doneTableView reloadData];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
     // NSMutableArray for done tasks
     if ([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil) {
         _doneTasks = [NSMutableArray new];
@@ -32,11 +47,7 @@
     
     [_doneTableView reloadData];
     
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [_doneTableView reloadData];
+//    [_doneTableView reloadData];
 }
 
 - (void)doneTaskDelegation:(NSMutableDictionary *)dictionary :(NSInteger)indexValue{

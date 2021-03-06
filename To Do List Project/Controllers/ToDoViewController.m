@@ -64,24 +64,11 @@
     [self.navigationItem setRightBarButtonItem:addTaskButton];
     
     
-    // add search on navigator
-    UISearchBar *searchBar = [[UISearchBar alloc]init];
-    searchBar.tintColor = [UIColor grayColor];
-    searchBar.placeholder = @"Search";
-    self.navigationItem.titleView = searchBar;
-    
-    //add action
-    
-    
-    
-    //
-    
-//    EditTaskViewController *editView = [self.storyboard instantiateViewControllerWithIdentifier:@"edit_task"];
-//
-//    [editView setEditDelegation:self];
     
     
 }
+
+
 
 // action on add bar button
 - (void)addTaskAction {
@@ -118,8 +105,8 @@
 // add task delegation method
 - (void)addTask:(NSMutableDictionary *)dataDictionary{
     
-    [_allTasks addObject: dataDictionary];
-    [defaults setObject:_allTasks forKey:@"todo_tasks"];
+    [_allTasks addObject: dataDictionary]; // _alltask => array of dictionary
+    [defaults setObject:_allTasks forKey:@"todo_tasks"]; // defaults => user defaults
     [defaults synchronize];
     [_allTaskTableView reloadData];
     
@@ -133,9 +120,10 @@
     printf("%s\n", [stateForRemove UTF8String]);
     
     
-    //[_allTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
-    [_allTasks removeObjectAtIndex:indexValue];
-    [_allTasks addObject:dictionary];
+    [_allTasks replaceObjectAtIndex:(NSUInteger)indexValue withObject:dictionary];
+    
+    //[_allTasks removeObjectAtIndex:indexValue];
+    //[_allTasks addObject:dictionary];
     
     [defaults setObject:_allTasks forKey:@"todo_tasks"];
 
@@ -143,35 +131,39 @@
     if([[dictionary objectForKey:@"state"] isEqual:@"In Progress"]){
         // in progress
         if([[defaults objectForKey:@"in_progress_tasks"] mutableCopy] == nil || [[defaults objectForKey:@"in_progress_tasks"] count] == 0){
+            
             [_inProgressTasks removeAllObjects];
             [_inProgressTasks addObject: dictionary];
-        }else if([_inProgressTasks containsObject: dictionaryForEdit]){
             
-            [_inProgressTasks removeObjectIdenticalTo:dictionaryForEdit];
-            [_inProgressTasks addObject:dictionary];
-            
-        }else{
+        }
+        else{
             [_inProgressTasks addObject: dictionary];
         }
         [defaults setObject:_inProgressTasks forKey:@"in_progress_tasks"];
 
+        //
+        [_allTasks removeObjectAtIndex:(NSUInteger)indexValue];
+        [defaults setObject:_allTasks forKey:@"todo_tasks"];
+        //
 
     }else if ([[dictionary objectForKey:@"state"] isEqual:@"Done"]){
         // done
         if([[defaults objectForKey:@"done_tasks"] mutableCopy] == nil || [[defaults objectForKey:@"done_tasks"] count] == 0){
             [_doneTasks removeAllObjects];
             [_doneTasks addObject: dictionary];
-        }else if([_doneTasks containsObject: dictionaryForEdit]){
-            
-            [_doneTasks removeObjectIdenticalTo:dictionaryForEdit];
-            [_doneTasks addObject:dictionary];
-            
-        }else{
+        }
+
+        else{
             [_doneTasks addObject: dictionary];
         }
         
         
         [defaults setObject:_doneTasks forKey:@"done_tasks"];
+        
+        //
+        [_allTasks removeObjectAtIndex:(NSUInteger)indexValue];
+        [defaults setObject:_allTasks forKey:@"todo_tasks"];
+        //
     }
 
 

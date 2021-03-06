@@ -23,6 +23,9 @@
 @property NSMutableArray<NSMutableDictionary*> *inProgressTasks;
 @property NSMutableArray<NSMutableDictionary*> *doneTasks;
 
+@property NSMutableArray<NSMutableDictionary*> *allProjectTasks;
+
+@property (weak, nonatomic) IBOutlet UISearchBar *tasksSearchBar;
 
 
 @property (weak, nonatomic) IBOutlet UITableView *allTaskTableView;
