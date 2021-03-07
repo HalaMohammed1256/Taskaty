@@ -35,6 +35,7 @@
 @property NSString* showState;
 @property NSDate* showDate;
 @property NSInteger rowIndex;
+@property NSDate* showCreationDate;
 
 @property NSMutableDictionary *showDictionary;
 

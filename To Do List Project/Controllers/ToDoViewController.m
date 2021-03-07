@@ -15,6 +15,8 @@
     
     BOOL isFilled;
     NSMutableArray *filteredArray;
+    
+    BOOL isGranted;
 }
 @end
 
@@ -68,14 +70,120 @@
     // add bar button
     UIBarButtonItem *addTaskButton = [[UIBarButtonItem alloc] initWithTitle:@"add" style:UIBarButtonItemStylePlain target:self action:@selector(addTaskAction)];
     
-    //UIBarButtonItem *addTaskButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus3"] style:UIBarButtonItemStylePlain target:self action:@selector(addTaskAction)];
+//    UIBarButtonItem *addTaskButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus2"] style:UIBarButtonItemStylePlain target:self action:@selector(addTaskAction)];
 
+    addTaskButton.tintColor = [UIColor colorWithRed:46/255.0 green:20/255.0 blue:88/255.0 alpha:1.0];
     
     [self.navigationItem setRightBarButtonItem:addTaskButton];
     
     
+    // Notification
+    isGranted = false;
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    UNAuthorizationOptions option = UNAuthorizationOptionAlert + UNAuthorizationOptionSound;
+    
+    [center requestAuthorizationWithOptions:option completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        self->isGranted = granted;
+        printf("%d", self->isGranted);
+    }];
+    
+    
+    self.view.backgroundColor = [UIColor colorWithRed:119/255.0 green:94/255.0 blue:160/255.0 alpha:1.0];
+    
+    
+//    for (NSMutableDictionary *dic in _allTasks) {
+//
+//        // Start with todays date
+//        NSDate *startDate = [dic objectForKey:@"creation_date"];
+//
+//        // End date
+//        NSDate *endDate = [dic objectForKey:@"date"];
+//
+//
+//        NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//
+//        NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay fromDate:startDate toDate:endDate options:0];
+//
+////        printf("hour %ld", [components hour]);
+//
+//        if([components day] == 1){
+//
+//            UNMutableNotificationContent *content = [UNMutableNotificationContent new];
+//
+//            content.title = @"Task Remainder";
+//            content.subtitle = [dic objectForKey:@"name"];
+//            content.body = [dic objectForKey:@"description"];
+//            content.sound = [UNNotificationSound defaultSound];
+//
+//
+//            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+//            NSString *identifier = @"Reminder Notification";
+//            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:trigger];
+//
+//            [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+//             if (error != nil) {
+//               NSLog(@"Something went wrong: %@",error);
+//             }
+//             }];
+//
+//        }
+//    }
+    
+    
     
 }
+
+-(void) notificationMethod{
+    
+    if(isGranted){
+
+        UNUserNotificationCenter * center = [UNUserNotificationCenter currentNotificationCenter];
+
+        for (NSMutableDictionary *dic in _allTasks) {
+
+            // Start with todays date
+            NSDate *startDate = [dic objectForKey:@"creation_date"];
+
+            // End date
+            NSDate *endDate = [dic objectForKey:@"date"];
+
+
+            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+
+            NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay fromDate:startDate toDate:endDate options:0];
+
+
+            printf("day: %ld", [components day]);
+            if([components day] == 1){
+
+                UNMutableNotificationContent *content = [UNMutableNotificationContent new];
+
+                content.title = @"Task Remainder";
+                content.subtitle = [dic objectForKey:@"name"];
+                content.body = [dic objectForKey:@"description"];
+                content.sound = [UNNotificationSound defaultSound];
+
+
+                UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:10 repeats:NO];
+                NSString *identifier = @"Reminder Notification";
+                UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:trigger];
+
+                [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                 if (error != nil) {
+                   NSLog(@"Something went wrong: %@",error);
+                 }
+                 }];
+
+            }
+        }
+    }
+    
+    
+}
+
+
+
+
 
 // search method
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
@@ -97,7 +205,6 @@
 
     }
 
-    //
         [_allTaskTableView reloadData];
 }
 
@@ -136,8 +243,12 @@
 // add task delegation method
 - (void)addTask:(NSMutableDictionary *)dataDictionary{
     
+    
     [_allTasks addObject: dataDictionary]; // _alltask => array of dictionary
     [defaults setObject:_allTasks forKey:@"todo_tasks"]; // defaults => user defaults
+    
+    [self notificationMethod];
+    
     [defaults synchronize];
     [_allTaskTableView reloadData];
     
@@ -194,6 +305,8 @@
         [defaults setObject:_allTasks forKey:@"todo_tasks"];
         //
     }
+    
+    [self notificationMethod];
 
 
     [defaults synchronize];
@@ -271,11 +384,17 @@
                 cell.labelName.text = [[filteredArray objectAtIndex:indexPath.row] objectForKey:@"name"];
 
         if([[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
-            cell.imagePriority.tintColor = [UIColor redColor];
+        
+            cell.imagePriority.tintColor = [UIColor colorWithRed:255/255.0 green:77/255.0 blue:0/255.0 alpha:1.0];
+            
         }else if([[[filteredArray objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
-            cell.imagePriority.tintColor = [UIColor blueColor];
+            
+            cell.imagePriority.tintColor = [UIColor colorWithRed:0/255.0 green:206/255.0 blue:255/255.0 alpha:1.0];
+            
         }else{
-            cell.imagePriority.tintColor = [UIColor greenColor];
+            
+            cell.imagePriority.tintColor = [UIColor colorWithRed:255/255.0 green:172/255.0 blue:0/255.0 alpha:1.0];
+            
         }
         
     }else{
@@ -288,14 +407,21 @@
         cell.labelName.text = [[_allTasks objectAtIndex:indexPath.row] objectForKey:@"name"];
 
         if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"High"]){
-            cell.imagePriority.tintColor = [UIColor redColor];
+            
+            cell.imagePriority.tintColor = [UIColor colorWithRed:255/255.0 green:77/255.0 blue:0/255.0 alpha:1.0];
+            
         }else if([[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"] isEqualToString: @"Medium"]){
-            cell.imagePriority.tintColor = [UIColor blueColor];
+            
+            cell.imagePriority.tintColor = [UIColor colorWithRed:0/255.0 green:206/255.0 blue:255/255.0 alpha:1.0];
+            
         }else{
-            cell.imagePriority.tintColor = [UIColor greenColor];
+            
+            cell.imagePriority.tintColor = [UIColor colorWithRed:255/255.0 green:172/255.0 blue:0/255.0 alpha:1.0];
+            
         }
         
     }
+
     
     
     return  cell;
@@ -355,6 +481,8 @@
     [showTask setShowPriority:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"priority"]];
 
     [showTask setShowDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"date"]];
+    
+    [showTask setShowCreationDate:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"creation_date"]];
 
     [showTask setShowState:[[_allTasks objectAtIndex:indexPath.row] objectForKey:@"state"]];
     

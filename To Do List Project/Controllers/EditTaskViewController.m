@@ -65,6 +65,8 @@
    
     // save bar button
     UIBarButtonItem *addTaskButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveTaskAction)];
+    
+    addTaskButton.tintColor = [UIColor colorWithRed:46/255.0 green:20/255.0 blue:88/255.0 alpha:1.0];
         
     [self.navigationItem setRightBarButtonItem:addTaskButton];
 
@@ -76,6 +78,7 @@
     model.taskName = _editNameTextField.text;
     model.taskDate = _editDatePicker.date;
     model.taskDescription = _editDescriptionTextView.text;
+    model.taskCreationDate = _editCreationDate;
     
     if(priority == nil){
         model.taskPriority = priorityArray[0];
@@ -95,6 +98,7 @@
     [editDictionary setObject:model.taskPriority forKey:@"priority"];
     [editDictionary setObject:model.taskDate forKey:@"date"];
     [editDictionary setObject:model.taskState forKey:@"state"];
+    [editDictionary setObject:model.taskCreationDate forKey:@"creation_date"];
         
     
     

@@ -9,6 +9,7 @@
 #import "DoneTableViewCell.h"
 #import "DoneDelegation.h"
 #import "EditTaskViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface DoneViewController : ViewController <UITableViewDelegate, UITableViewDataSource, DoneDelegation, UISearchBarDelegate>
 

@@ -36,15 +36,18 @@
     // add bar button
     UIBarButtonItem *editTaskButton = [[UIBarButtonItem alloc] initWithTitle:@"edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTaskAction)];
     
+    editTaskButton.tintColor = [UIColor colorWithRed:46/255.0 green:20/255.0 blue:88/255.0 alpha:1.0];
 
     [self.navigationItem setRightBarButtonItem:editTaskButton];
     
     
     
     // add save button
-    UIBarButtonItem *saveTaskButton = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(saveTaskAction)];
+    UIBarButtonItem *saveTaskButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:self action:@selector(saveTaskAction)];
     
 
+    saveTaskButton.tintColor = [UIColor colorWithRed:46/255.0 green:20/255.0 blue:88/255.0 alpha:1.0];
+    
     [self.navigationItem setLeftBarButtonItem:saveTaskButton];
     
     
@@ -88,6 +91,7 @@
     
     [editTask setEditState:_showState];
     
+    [editTask setEditCreationDate:_showCreationDate];
 
 
     [self.navigationController pushViewController:editTask animated:YES];
@@ -97,22 +101,21 @@
 -(void) saveTaskAction{
     
     DataModel *model = [DataModel new];
+    
+    
     model.taskName = _showNameLabel.text;
-    
-//    NSDate *dateValue = [[NSDate alloc] init];
-//    dateValue = [formatter dateFromString:_showDateLabel.text];
-    
     model.taskDate = dateValue;
-    
     model.taskDescription = _showDescriptionTextView.text;
     model.taskState = _showStateLabel.text;
     model.taskPriority = _showPriorityLabel.text;
-
+    model.taskCreationDate = _showCreationDate;
+    
         
     [editDataDictionary setObject:model.taskName forKey:@"name"];
     [editDataDictionary setObject:model.taskDescription forKey:@"description"];
     [editDataDictionary setObject:model.taskPriority forKey:@"priority"];
     [editDataDictionary setObject:model.taskDate forKey:@"date"];
+    [editDataDictionary setObject:model.taskCreationDate forKey:@"creation_date"];
     [editDataDictionary setObject:model.taskState forKey:@"state"];
     
     [_editDedegation editTaskDelegation:editDataDictionary : _rowIndex];
@@ -136,7 +139,6 @@
 
     _showDateLabel.text = dateString;
     _showStateLabel.text = [dictionary objectForKey: @"state"];
-
 
     dateValue = [dictionary objectForKey: @"date"];
     

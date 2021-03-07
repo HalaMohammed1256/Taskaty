@@ -22,6 +22,9 @@
 		2B675DE225EC3C1B00DAD846 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DE125EC3C1B00DAD846 /* DataModel.m */; };
 		2B675DE625EC3D3A00DAD846 /* AddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DE525EC3D3A00DAD846 /* AddTaskViewController.m */; };
 		2B675DEA25EC42DF00DAD846 /* EditTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */; };
+		2B84450A25F5218200F348C9 /* FirstViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84450925F5218200F348C9 /* FirstViewViewController.m */; };
+		2B84450E25F5382A00F348C9 /* TaskatyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84450D25F5382A00F348C9 /* TaskatyViewController.m */; };
+		2B860DD525F452FE006B75A6 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B860DD425F452FE006B75A6 /* UserNotificationsUI.framework */; };
 		2BB73FD825ED1DD4007FB9DB /* TodoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB73FD725ED1DD4007FB9DB /* TodoTableViewCell.m */; };
 		2BB73FDC25ED1DEC007FB9DB /* InProgressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB73FDB25ED1DEC007FB9DB /* InProgressTableViewCell.m */; };
 		2BB73FE025ED1E33007FB9DB /* DoneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB73FDF25ED1E33007FB9DB /* DoneTableViewCell.m */; };
@@ -58,6 +61,11 @@
 		2B675DE825EC42DF00DAD846 /* EditTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditTaskViewController.h; sourceTree = "<group>"; };
 		2B675DE925EC42DF00DAD846 /* EditTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditTaskViewController.m; sourceTree = "<group>"; };
 		2B675DEC25EC463000DAD846 /* AddDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDelegation.h; sourceTree = "<group>"; };
+		2B84450825F5218200F348C9 /* FirstViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewViewController.h; sourceTree = "<group>"; };
+		2B84450925F5218200F348C9 /* FirstViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewViewController.m; sourceTree = "<group>"; };
+		2B84450C25F5382A00F348C9 /* TaskatyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskatyViewController.h; sourceTree = "<group>"; };
+		2B84450D25F5382A00F348C9 /* TaskatyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskatyViewController.m; sourceTree = "<group>"; };
+		2B860DD425F452FE006B75A6 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		2B8DCC8325F041CB00E1B220 /* InProgressEditDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProgressEditDelegation.h; sourceTree = "<group>"; };
 		2BA80EAB25EFB5DA0045B748 /* showDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = showDelegation.h; sourceTree = "<group>"; };
 		2BAE4B8725F0F08F00CF165F /* DoneDelegation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoneDelegation.h; sourceTree = "<group>"; };
@@ -74,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B860DD525F452FE006B75A6 /* UserNotificationsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +94,7 @@
 			children = (
 				2B675DB525EC272400DAD846 /* To Do List Project */,
 				2B675DB425EC272400DAD846 /* Products */,
+				2B860DD325F452FE006B75A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +121,14 @@
 				2BB7401625ED8350007FB9DB /* Controllers */,
 			);
 			path = "To Do List Project";
+			sourceTree = "<group>";
+		};
+		2B860DD325F452FE006B75A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B860DD425F452FE006B75A6 /* UserNotificationsUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		2BB7401625ED8350007FB9DB /* Controllers */ = {
@@ -141,6 +159,10 @@
 				2BA80EAB25EFB5DA0045B748 /* showDelegation.h */,
 				2B8DCC8325F041CB00E1B220 /* InProgressEditDelegation.h */,
 				2BAE4B8725F0F08F00CF165F /* DoneDelegation.h */,
+				2B84450825F5218200F348C9 /* FirstViewViewController.h */,
+				2B84450925F5218200F348C9 /* FirstViewViewController.m */,
+				2B84450C25F5382A00F348C9 /* TaskatyViewController.h */,
+				2B84450D25F5382A00F348C9 /* TaskatyViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -240,9 +262,11 @@
 				2B675DDA25EC31DA00DAD846 /* DoneViewController.m in Sources */,
 				2B675DE225EC3C1B00DAD846 /* DataModel.m in Sources */,
 				2B675DB825EC272400DAD846 /* AppDelegate.m in Sources */,
+				2B84450A25F5218200F348C9 /* FirstViewViewController.m in Sources */,
 				2B675DD625EC31CD00DAD846 /* InProgressViewController.m in Sources */,
 				2B675DE625EC3D3A00DAD846 /* AddTaskViewController.m in Sources */,
 				2BB73FDC25ED1DEC007FB9DB /* InProgressTableViewCell.m in Sources */,
+				2B84450E25F5382A00F348C9 /* TaskatyViewController.m in Sources */,
 				2B675DD225EC31BC00DAD846 /* ToDoViewController.m in Sources */,
 				2BB73FD825ED1DD4007FB9DB /* TodoTableViewCell.m in Sources */,
 				2BB73FE025ED1E33007FB9DB /* DoneTableViewCell.m in Sources */,

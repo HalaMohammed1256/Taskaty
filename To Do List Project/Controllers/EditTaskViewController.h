@@ -38,6 +38,7 @@
 @property NSString* editPriority;
 @property NSString* editState;
 @property NSDate* editDate;
+@property NSDate* editCreationDate;
 @property NSInteger rowIndex;
 
 
