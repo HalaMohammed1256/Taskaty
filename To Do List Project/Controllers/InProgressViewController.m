@@ -182,6 +182,8 @@
         }
 
         else{
+            
+            _doneTasks = [[defaults objectForKey:@"done_tasks"] mutableCopy];
             [_doneTasks addObject: dictionary];
             [defaults setObject:_doneTasks forKey:@"done_tasks"];
         }
